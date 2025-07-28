@@ -10,18 +10,22 @@
                         {% if row.status == 0 %}
                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
                             <a href="{% url 'menu_item' row.pk %}"><h3><del>{{ row.meal }}</del></h3></a>
-                            <span class="badge bg-primary rounded -pill">{{ row.price }}</span>
+                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
                         </li>
                         <li class="list-group-item pt-0">
                             <p>{{ row.description }}</p>
+                            <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
                         </li>
                         {% else %}
                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
                             <a href="{% url 'menu_item' row.pk %}"><h3>{{ row.meal }}</h3></a>
-                            <span class="badge bg-primary rounded -pill">{{ row.price }}</span>
+                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
                         </li>
                         <li class="list-group-item pt-0">
                             <p>{{ row.description }}</p>
+                            <a href="{% url 'add_to_cart' row.pk %}" class="btn btn-success btn-sm">
+                                <i class="bi bi-cart-plus"></i> Add to Cart
+                            </a>
                         </li>
                         {% endif %}
                     {% endif %}

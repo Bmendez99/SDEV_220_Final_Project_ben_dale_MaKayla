@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dx*#!ev=5w%_ld(f87ixozcq&vzss_7xl_jjv)a)8=ejg7cu7#'
+SECRET_KEY = 'django-insecure-&1xn)$hc$ik&u&m-_8e6d(k*cp3+kx-^(3a(%c@4#zq=p1g&l9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'menu_app',
+    'MenuApp.menu_app',  # Ensure your app is included here
 ]
 
 MIDDLEWARE = [
@@ -80,6 +80,11 @@ DATABASES = {
     }
 }
 
+
+# Login/Logout URLs
+LOGIN_REDIRECT_URL = '/menu/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
