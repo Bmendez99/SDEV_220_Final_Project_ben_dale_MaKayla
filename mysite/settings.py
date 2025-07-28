@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     'MenuApp',  # Ensure your app is included here
+    'MenuApp.menu_app',  # Ensure your app is included here
 ]
 
 MIDDLEWARE = [
@@ -80,6 +80,11 @@ DATABASES = {
     }
 }
 
+
+# Login/Logout URLs
+LOGIN_REDIRECT_URL = '/menu/'
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
