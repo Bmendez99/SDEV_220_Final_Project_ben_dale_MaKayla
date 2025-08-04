@@ -1,36 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-  <h1>Restaurant Menu</h1>
-    <ul class="list-group list-group-flush">
-        {% for meal in meals %}
-            <h2 class="pt-5">{{ meal.1 }}</h2>
-                {% for row in item_list %}
-                    {% if row.meal_type == meal.0 %}
-                        {% if row.status == 0 %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
-                            <a href="{% url 'menu_item' row.pk %}"><h3><del>{{ row.meal }}</del></h3></a>
-                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
-                        </li>
-                        <li class="list-group-item pt-0">
-                            <p>{{ row.description }}</p>
-                            <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
-                        </li>
-                        {% else %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 pb-0">
-                            <a href="{% url 'menu_item' row.pk %}"><h3>{{ row.meal }}</h3></a>
-                            <span class="badge bg-primary rounded-pill">{{ row.price }}</span>
-                        </li>
-                        <li class="list-group-item pt-0">
-                            <p>{{ row.description }}</p>
-                            <a href="{% url 'add_to_cart' row.pk %}" class="btn btn-success btn-sm">
-                                <i class="bi bi-cart-plus"></i> Add to Cart
-                            </a>
-                        </li>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-        {% endfor %}
-    </ul>
+  <h1 class="mb-4">Restaurant Menu</h1>
+    {% for meal in meals %}
+        <h2 class="pt-5 mb-4">{{ meal.1 }}</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+            {% for row in item_list %}
+                {% if row.meal_type == meal.0 %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            {% if row.image %}
+                                <img src="{{ row.image.url }}" class="card-img-top" alt="{{ row.meal }}" style="height: 200px; object-fit: cover;">
+                            {% else %}
+                                <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                    <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {% if row.status == 0 %}
+                                        <del>{{ row.meal }}</del>
+                                    {% else %}
+                                        {{ row.meal }}
+                                    {% endif %}
+                                </h5>
+                                <p class="card-text">{{ row.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-primary fs-6">${{ row.price }}</span>
+                                    {% if row.status == 0 %}
+                                        <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
+                                    {% else %}
+                                        <a href="{% url 'add_to_cart' row.pk %}" class="btn btn-success btn-sm">
+                                            <i class="bi bi-cart-plus"></i> Add to Cart
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="{% url 'menu_item' row.pk %}" class="btn btn-outline-primary btn-sm w-100">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
 </div>
 {% endblock content %}

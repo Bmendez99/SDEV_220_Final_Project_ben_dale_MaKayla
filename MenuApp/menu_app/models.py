@@ -18,6 +18,7 @@ class Item(models.Model):#creating database model
     description = models.CharField(max_length=2000)
     price = models.DecimalField(max_digits=10 ,decimal_places=2)
     meal_type = models.CharField(max_length=200, choices=MEAL_TYPE)
+    image = models.ImageField(upload_to='menu_images/', blank=True, null=True, help_text="Upload an image for this menu item")
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     status = models.IntegerField(choices=STATUS, default=0)
     date_created = models.DateTimeField(auto_now_add=True)

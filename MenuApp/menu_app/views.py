@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import Item, MEAL_TYPE, Cart, CartItem  # imports from the models table
 
 
@@ -91,5 +93,24 @@ def clear_cart(request):
     cart.cartitem_set.all().delete()
     messages.success(request, 'Cart cleared!')
     return redirect('cart')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created successfully! Welcome to our menu app.')
+            return redirect('menu')
+        else:
+            messages.error(request, 'Please correct the errors below.')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'register.html', {'form': form})
+
+
+
 
 
